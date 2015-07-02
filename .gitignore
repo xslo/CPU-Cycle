@@ -1,0 +1,31 @@
+// ConsoleApplication5.cpp: 主要專案檔。
+#include "stdafx.h"
+#include "iostream"
+#include "ctime"
+#include<windows.h>
+using namespace System;
+using namespace std;
+
+int main(array<System::String ^> ^args)
+{
+	cout << "Enter\n";
+	LARGE_INTEGER startTime, endTime, fre;
+	double times;
+	QueryPerformanceFrequency(&fre); //取得CPU頻率
+	QueryPerformanceCounter(&startTime); //取得開機到現在經過幾個CPU Cycle
+	float secs;
+	cin >> secs;
+	clock_t delay = secs * CLOCKS_PER_SEC;
+	cout << "start\a\n";
+	clock_t start = clock();
+	while (clock() - start < delay)
+	{
+		;
+	}
+	cout << "done\a\n";
+	QueryPerformanceCounter(&endTime); //取得開機到程式執行完成經過幾個CPU Cycle
+	times = ((double)endTime.QuadPart - (double)startTime.QuadPart) / fre.QuadPart;
+	cout << fixed  << times << 's' << endl;
+	system("pause");
+    return 0;
+}
